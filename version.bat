@@ -1,4 +1,13 @@
 @echo off
+set argC=0
+for %%x in (%*) do Set /A argC+=1
+if %argC% neq 2 (
+    echo "AUTO VERSION TRACKER v1.0"
+    echo "arg1: version 1.2.3"
+    echo "arg2: commit message"
+    exit
+)
+
 for /f "tokens=1,2,3 delims=." %%a in ("%1") do (
    set array[1]=%%a
    set array[2]=%%b
@@ -19,6 +28,7 @@ for /F "tokens=1* delims=:" %%A in (library.json) do (
     if not "!string:%substring%=!"=="!string!" set res=T
     if !found! equ 1 set res=F
     if "!res!"=="T"  (
+        set found=1
         echo %%A: "%version%",>>"%TEMP%\library.json"
     ) else if "%%B" == "" (
         echo %%A>>"%TEMP%\library.json"
