@@ -6,10 +6,17 @@
 #define STATUS_ETH 0
 #define STATUS_MQTT 1
 
-#define AASSERT(condition, message) \
-    if (!(condition)) printer.assert(__FILE__ + " at " + __LINE__ + ": " + message)
+#define ASSERT(condition, message) \
+    if (!(condition)) printer.err(__FILE__ + " at " + __LINE__ + ": " + message)
+#define ASSERT(condition, message, execute)                           \
+    if (!(condition)) {                                                \
+        printer.warn(__FILE__ + " at " + __LINE__ + ": " + message); \
+        execute;                                                       \
+    }
 
-#define AWARN(mesage) printer.warn()
+#define MSG(message) printer.msg(message)
+#define WARN(message) printer.warn(message)
+#define ERR(message) printer.err(message)
 
 class Assistant {
    public:
@@ -39,9 +46,9 @@ class AssistantPrinter {
    public:
     virtual void msg(String mesage){};
 
-    virtual void err(String mesage) { msg(mesage); };
     virtual void msg(String mesage) { msg(mesage); };
-    virtual void assert(String mesage) { msg(mesage); };
+    virtual void warn(String mesage) { msg(mesage); };
+    virtual void err(String mesage) { msg(mesage); };
 
 } _AssistantPrinter;
 
