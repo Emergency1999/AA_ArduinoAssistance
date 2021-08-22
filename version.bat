@@ -19,13 +19,10 @@ for /F "tokens=1* delims=:" %%A in (library.json) do (
     if not "!string:%substring%=!"=="!string!" set res=T
     if !found! equ 1 set res=F
     if "!res!"=="T"  (
-        set found=1
-        echo FOUND %%A
         echo %%A: "%version%",>>"%TEMP%\library.json"
     ) else if "%%B" == "" (
         echo %%A>>"%TEMP%\library.json"
     ) else (
-        echo NF %%A
         echo %%A:%%B>>"%TEMP%\library.json"
     )
 )

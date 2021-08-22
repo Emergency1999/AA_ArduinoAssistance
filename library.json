@@ -12,7 +12,7 @@
     },
     "dependencies": [{
         "name": "LinkedList",
-        "version": "https://github.com/Emergency1999/LinkedList.git"
+        "version": "1.1.0",
     }],
     "license": "MIT",
     "frameworks": "Arduino",
