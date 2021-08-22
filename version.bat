@@ -32,6 +32,10 @@ for /F "tokens=1* delims=:" %%A in (library.json) do (
 move /Y "%TEMP%\library.json" library.json >nul
 set "version="
 
+git add * 
+git commit -m %2
+git push
+
 git tag --force  %array[1]%.%array[2]%.%array[3]% master
 git tag --force  %array[1]%.%array[2]% master
 git tag --force  %array[1]% master
