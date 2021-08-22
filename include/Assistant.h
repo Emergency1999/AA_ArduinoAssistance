@@ -7,10 +7,10 @@
 #define STATUS_MQTT 1
 
 #define ASSERT(condition, message) \
-    if (!(condition)) printer->err(__FILE__ + " at " + __LINE__ + ": " + message)
+    if (!(condition)) printer->err(__FILE__ + (String)" at " + __LINE__ + ": " + message)
 #define ASSERT(condition, message, execute)                           \
     if (!(condition)) {                                                \
-        printer->warn(__FILE__ + " at " + __LINE__ + ": " + message); \
+        printer->warn(__FILE__ + (String)" at " + __LINE__ + ": " + message); \
         execute;                                                       \
     }
 
