@@ -6,12 +6,12 @@
 #define STATUS_ETH 0
 #define STATUS_MQTT 1
 
-#define ASSERT(condition, message) \
-    if (!(condition)) printer->err(__FILE__ + (String)" at " + __LINE__ + ": " + message)
-#define ASSERT(condition, message, execute)                           \
-    if (!(condition)) {                                                \
-        printer->warn(__FILE__ + (String)" at " + __LINE__ + ": " + message); \
-        execute;                                                       \
+#define ASSERT_ERR(condition, message) \
+    if (!(condition)) printer->err(__FILE__ + (String) " at " + __LINE__ + ": " + message)
+#define ASSERT_WARN(condition, message, execute)                               \
+    if (!(condition)) {                                                        \
+        printer->warn(__FILE__ + (String) " at " + __LINE__ + ": " + message); \
+        execute;                                                               \
     }
 
 #define MSG(message) printer->msg(message)
@@ -45,13 +45,10 @@ class Assistant {
 class AssistantPrinter {
    public:
     virtual void msg(String mesage){};
-
-    virtual void msg(String mesage) { msg(mesage); };
     virtual void warn(String mesage) { msg(mesage); };
     virtual void err(String mesage) { msg(mesage); };
+};
 
-} _AssistantPrinter;
-
-AssistantPrinter *printer = &_AssistantPrinter;
+extern AssistantPrinter *printer;
 
 #endif
