@@ -1,6 +1,6 @@
 {
     "name": "AA_ArduinoAssistance",
-    "version": "2.1.0",
+    "version": "1.2.0",
     "description": "Base Library for Arduino and ESP Assistance",
     "keywords": "base, assistance",
     "authors": {
