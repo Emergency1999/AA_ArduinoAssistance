@@ -3,15 +3,17 @@
 
 #include <LinkedList.h>
 
+#define BUFFER_MAX_LEN 512
+
 #define STATUS_ETH 0
 #define STATUS_MQTT 1
 
 #define ASSERT_ERR(condition, message) \
-    if (!(condition)) printer->err(__FILE__ + (String) " at " + __LINE__ + ": " + message)
-#define ASSERT_WARN(condition, message, execute)                               \
-    if (!(condition)) {                                                        \
-        printer->warn(__FILE__ + (String) " at " + __LINE__ + ": " + message); \
-        execute;                                                               \
+    if (!(condition)) printer->err(__BASE_FILE__ + (String) " at " + __LINE__ + ": " + message)
+#define ASSERT_WARN(condition, message, execute)                                    \
+    if (!(condition)) {                                                             \
+        printer->warn(__BASE_FILE__ + (String) " at " + __LINE__ + ": " + message); \
+        execute;                                                                    \
     }
 
 #define MSG(message) printer->msg(message)
@@ -44,11 +46,37 @@ class Assistant {
 
 class AssistantPrinter {
    public:
-    virtual void msg(String mesage){};
-    virtual void warn(String mesage) { msg(mesage); };
-    virtual void err(String mesage) { msg(mesage); };
+    String buffer = "";
+    virtual void msg(String message) {
+        if (buffer.length() < BUFFER_MAX_LEN)
+            buffer += message + "\n";
+    };
+    virtual void warn(String message) { msg(message); };
+    virtual void err(String message) { msg(message); };
 };
 
 extern AssistantPrinter *printer;
+
+class SerialAssistantPrinter : public AssistantPrinter, public Assistant {
+   public:
+    SerialAssistantPrinter() {
+        buffer = printer->buffer;
+#if defined(ESP8266) || defined(ESP32)
+        printer->buffer.clear();
+#else
+        printer->buffer = "";
+#endif
+        printer = this;
+    }
+    void _setup() {
+        _loop();
+    }
+    void _loop() {
+        if (buffer && Serial) {
+            Serial.print(buffer);
+            buffer = "";
+        }
+    }
+};
 
 #endif

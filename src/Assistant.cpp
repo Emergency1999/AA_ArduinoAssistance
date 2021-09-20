@@ -3,8 +3,8 @@
 
 LinkedList<Assistant> Assistant::List;
 
-AssistantPrinter _AssistantPrinter;
-AssistantPrinter* printer = &_AssistantPrinter;
+AssistantPrinter _DefaultPrinter;
+AssistantPrinter* printer = &_DefaultPrinter;
 
 Assistant::Assistant() : is_setup(false) {
     List << this;
