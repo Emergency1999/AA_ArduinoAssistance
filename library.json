@@ -1,6 +1,6 @@
 {
     "name": "AA_ArduinoAssistance",
-    "version": "1.2.0",
+    "version": "3.0.0",
     "description": "Base Library for Arduino and ESP Assistance",
     "keywords": "base, assistance",
     "authors": {
@@ -8,11 +8,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Emergency1999/AA_TEMPLATE.git"
+        "url": "https://github.com/SchmidHome/AA_ArduinoAssistance.git"
     },
     "dependencies": [{
         "name": "LinkedList",
-        "version": "https://github.com/Emergency1999/LinkedList.git"
+        "version": "https://github.com/SchmidHome/LinkedList.git"
     }],
     "license": "MIT",
     "frameworks": "Arduino",
